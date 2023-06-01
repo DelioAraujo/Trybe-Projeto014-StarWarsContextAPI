@@ -3,7 +3,7 @@ import tableContext from '../context/TableContext';
 
 function Table() {
   const { tableData } = useContext(tableContext);
-  //   console.log(tableData);
+  // console.log(tableData);
 
   if (tableData.length === 0) {
     return <span>Carregando...</span>;

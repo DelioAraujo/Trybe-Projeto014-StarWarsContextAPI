@@ -9,7 +9,7 @@ function TableProvider({ children }) {
   // const values = { tableData };
 
   return (
-    <tableContext.Provider value={ tableData }>
+    <tableContext.Provider value={ { tableData } }>
       { children }
     </tableContext.Provider>
   );
