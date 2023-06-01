@@ -5,7 +5,7 @@ import tableContext from './TableContext';
 import useTableFetch from '../hooks/useTableFetch';
 
 function TableProvider({ children }) {
-  // tableData é o retorno da API com TODOS os planetas
+  // tableData é o retorno da API com TODOS os planetas.
   const { tableData } = useTableFetch();
   // planetType é a string capturada ao se digitar no imput Planet da barra de filtros.
   const { planetTyped } = useContext(filterContext);
