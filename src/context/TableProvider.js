@@ -39,7 +39,6 @@ function TableProvider({ children }) {
       filteredData = filteredData.filter(filterFunction);
     });
   }
-
   // -----------------------------------------------------------------------------------------------------------------------------
   return (
     // se filteredData existir, tableData terá o valor de filteredData, se não, tableData terá o valor original.
