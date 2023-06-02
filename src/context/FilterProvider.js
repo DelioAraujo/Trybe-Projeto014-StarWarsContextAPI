@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import filterContext from './FilterContext';
 
 function FilterProvider({ children }) {
+  // filtro ao digitar algo ----------------------------------------------------------------
   const [planetTyped, setPlanetTyped] = useState('');
+  // filtro numérico ----------------------------------------------------------------------
   const [filterState, setFilterState] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -15,7 +17,7 @@ function FilterProvider({ children }) {
     comparison: '',
     value: undefined,
   });
-
+  // -------------------------------------------------------------------------------------
   return (
     <filterContext.Provider
       value={ {

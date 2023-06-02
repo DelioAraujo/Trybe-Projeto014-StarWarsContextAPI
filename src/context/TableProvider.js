@@ -7,8 +7,9 @@ import useTableFetch from '../hooks/useTableFetch';
 function TableProvider({ children }) {
   // tableData é o retorno da API com TODOS os planetas.
   const { tableData } = useTableFetch();
+  // filtro ao digitar algo ---------------------------------------------------------------------------------------------------------
   // planetType é a string capturada ao se digitar no imput Planet da barra de filtros.
-  const { planetTyped, activeFiltersState } = useContext(filterContext);
+  const { planetTyped } = useContext(filterContext);
   let filteredData = tableData;
   // se for digitado ago, tableData é filtrado e mostrará apenas as chaves com nome que contenham o que foi digitado. mesmo que parcialmente.
   if (planetTyped !== '') {
@@ -17,7 +18,30 @@ function TableProvider({ children }) {
       .name.toLowerCase()
       .includes(planetTypedLowerCase));
   }
+  // filtro numérico ----------------------------------------------------------------------------------------------------------------
+  const {
+    activeFiltersState,
+  } = useContext(filterContext);
 
+  if (activeFiltersState.column !== '') {
+    let filterFunction;
+    const columnValue = parseFloat(activeFiltersState.value);
+
+    if (activeFiltersState.comparison === 'maior que') {
+      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
+      > columnValue;
+    } else if (activeFiltersState.comparison === 'menor que') {
+      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
+      < columnValue;
+    } else if (activeFiltersState.comparison === 'igual a') {
+      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
+      === columnValue;
+    }
+
+    filteredData = tableData.filter(filterFunction);
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------------
   return (
     // se filteredData existir, tableData terá o valor de filteredData, se não, tableData terá o valor original.
     <tableContext.Provider value={ { tableData: filteredData } }>
