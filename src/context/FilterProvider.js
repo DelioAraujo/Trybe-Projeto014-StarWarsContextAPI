@@ -12,11 +12,7 @@ function FilterProvider({ children }) {
     value: 0,
   });
 
-  const [activeFiltersState, setActiveFiltersState] = useState({
-    column: '',
-    comparison: '',
-    value: undefined,
-  });
+  const [activeFiltersState, setActiveFiltersState] = useState([]);
   // -------------------------------------------------------------------------------------
   return (
     <filterContext.Provider

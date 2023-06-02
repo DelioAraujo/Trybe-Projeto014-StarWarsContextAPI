@@ -7,7 +7,6 @@ function Filters() {
     setPlanetTyped,
     filterState,
     setFilterState,
-    activeFiltersState,
     setActiveFiltersState,
   } = useContext(filterContext);
 
@@ -37,9 +36,10 @@ function Filters() {
   };
 
   const handleApplyFilter = () => {
-    setActiveFiltersState(filterState);
-    console.log(filterState);
-    console.log(activeFiltersState);
+    setActiveFiltersState((prevState) => [
+      ...prevState,
+      filterState,
+    ]);
   };
 
   return (

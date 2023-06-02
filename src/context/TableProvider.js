@@ -19,26 +19,25 @@ function TableProvider({ children }) {
       .includes(planetTypedLowerCase));
   }
   // filtro numérico -----------------------------------------------------------------------------------------------------------------
-  const {
-    activeFiltersState,
-  } = useContext(filterContext);
+  const { activeFiltersState } = useContext(filterContext);
 
-  if (activeFiltersState.column !== '') {
-    let filterFunction;
-    const columnValue = parseFloat(activeFiltersState.value);
+  if (activeFiltersState.length > 0) {
+    activeFiltersState.forEach((filter) => {
+      let filterFunction;
 
-    if (activeFiltersState.comparison === 'maior que') {
-      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
-      > columnValue;
-    } else if (activeFiltersState.comparison === 'menor que') {
-      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
-      < columnValue;
-    } else if (activeFiltersState.comparison === 'igual a') {
-      filterFunction = (item) => parseFloat(item[activeFiltersState.column])
-      === columnValue;
-    }
+      if (filter.comparison === 'maior que') {
+        filterFunction = (item) => parseFloat(item[filter.column])
+      > parseFloat(filter.value);
+      } else if (filter.comparison === 'menor que') {
+        filterFunction = (item) => parseFloat(item[filter.column])
+      < parseFloat(filter.value);
+      } else if (filter.comparison === 'igual a') {
+        filterFunction = (item) => parseFloat(item[filter.column])
+      === parseFloat(filter.value);
+      }
 
-    filteredData = tableData.filter(filterFunction);
+      filteredData = filteredData.filter(filterFunction);
+    });
   }
 
   // -----------------------------------------------------------------------------------------------------------------------------
