@@ -18,7 +18,7 @@ function TableProvider({ children }) {
       .name.toLowerCase()
       .includes(planetTypedLowerCase));
   }
-  // filtro numérico ----------------------------------------------------------------------------------------------------------------
+  // filtro numérico -----------------------------------------------------------------------------------------------------------------
   const {
     activeFiltersState,
   } = useContext(filterContext);
