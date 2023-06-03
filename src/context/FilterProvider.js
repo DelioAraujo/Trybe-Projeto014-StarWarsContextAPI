@@ -17,7 +17,8 @@ function FilterProvider({ children }) {
 
   const [activeFiltersState, setActiveFiltersState] = useState([]); // aqui são adicionados todos filtros numéricos ao clicar do botão.
 
-  // atualição da column-------------------------------------------------------------------------------------
+  // atualição do select column--------------------------------------------------------------
+  // opções originais para compor o select a ser renderizado
   const originalColum = [
     'population',
     'orbital_period',
@@ -25,10 +26,14 @@ function FilterProvider({ children }) {
     'rotation_period',
     'surface_water',
   ];
+  // se activeFilterState tiver algum filtro dentro,
+  // faz um filtro dentro das opções originais e deixa só as opções que forem diferentes à chave column dos filtros dentro do activeFiltersState
+
+  // -----------------------------------------------------------------------------------------
 
   const columnMenuUpdatedData = activeFiltersState.length !== 0
-    ? originalColum.filter((column) => !activeFiltersState
-      .some((filtro) => filtro.column === column))
+    ? originalColum.filter((menuOption) => !activeFiltersState
+      .some((filtro) => filtro.column === menuOption))
     : originalColum;
 
   return (

@@ -7,6 +7,7 @@ function Filters() {
     setPlanetTyped,
     filterState,
     setFilterState,
+    activeFiltersState,
     setActiveFiltersState,
     columnMenuUpdatedData,
   } = useContext(filterContext);
@@ -43,66 +44,110 @@ function Filters() {
     ]);
   };
 
+  const handleRemoveFilter = (index) => {
+    setActiveFiltersState((prevState) => {
+      const newState = [...prevState];
+      newState.splice(index, 1);
+      return newState;
+    });
+  };
+
+  const handleResetFilters = () => {
+    setActiveFiltersState([]);
+  };
+
   return (
-    <form>
+    <div>
+      <form>
 
-      <label>
-        Planet
-        <input
-          type="text"
-          data-testid="name-filter"
-          name="search-planet-input"
-          value={ planetTyped }
-          onChange={ handleInputChange }
-        />
-      </label>
+        <label>
+          Planet
+          <input
+            type="text"
+            data-testid="name-filter"
+            name="search-planet-input"
+            value={ planetTyped }
+            onChange={ handleInputChange }
+          />
+        </label>
 
-      <label>
-        Column
-        <select
-          data-testid="column-filter"
-          value={ filterState.column }
-          onChange={ handleColumnChange }
+        <label>
+          Column
+          <select
+            data-testid="column-filter"
+            value={ filterState.column }
+            onChange={ handleColumnChange }
+          >
+            {columnMenuUpdatedData.map((column, index) => (
+              <option key={ index } value={ column }>
+                {column}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Comparison
+          <select
+            data-testid="comparison-filter"
+            value={ filterState.comparison }
+            onChange={ handleComparisonChange }
+          >
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
+          </select>
+        </label>
+
+        <label>
+          Value
+          <input
+            type="number"
+            data-testid="value-filter"
+            value={ filterState.value }
+            onChange={ handleValueChange }
+          />
+        </label>
+
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ handleApplyFilter }
         >
-          {columnMenuUpdatedData.map((column, index) => (
-            <option key={ index } value={ column }>
-              {column}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label>
-        Comparison
-        <select
-          data-testid="comparison-filter"
-          value={ filterState.comparison }
-          onChange={ handleComparisonChange }
-        >
-          <option value="maior que">maior que</option>
-          <option value="menor que">menor que</option>
-          <option value="igual a">igual a</option>
-        </select>
-      </label>
-
-      <label>
-        Value
-        <input
-          type="number"
-          data-testid="value-filter"
-          value={ filterState.value }
-          onChange={ handleValueChange }
-        />
-      </label>
+          Apply Filter
+        </button>
+      </form>
 
       <button
         type="button"
-        data-testid="button-filter"
-        onClick={ handleApplyFilter }
+        onClick={ handleResetFilters }
+        data-testid="button-remove-filters"
       >
-        Apply Filter
+        Reset Filters
       </button>
-    </form>
+
+      <ul style={ { listStyleType: 'none' } }>
+        {activeFiltersState.map((filter, index) => (
+          <li key={ index } data-testid="filter">
+            <span>
+              {filter.column}
+              {' '}
+              {filter.comparison}
+              {' '}
+              {filter.value}
+              <button
+                type="button"
+                onClick={ () => handleRemoveFilter(index) }
+              >
+                Remover
+              </button>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+    </div>
+
   );
 }
 
