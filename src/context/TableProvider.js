@@ -39,7 +39,8 @@ function TableProvider({ children }) {
       filteredData = filteredData.filter(filterFunction);
     });
   }
-  // -----------------------------------------------------------------------------------------------------------------------------
+  // ordenar o resultado----------------------------------------------------------------------------------------------------------------
+
   return (
     // se filteredData existir, tableData terá o valor de filteredData, se não, tableData terá o valor original.
     <tableContext.Provider value={ { tableData: filteredData } }>

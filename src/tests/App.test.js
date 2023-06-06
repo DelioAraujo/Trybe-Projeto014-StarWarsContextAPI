@@ -295,7 +295,7 @@ test('Verifica se o select para filtro de coluna possui os options corretos', ()
   });
 });
 
-test('Testa se ao digitar "t", a tabela retorna apenas as linhas corretas', () => {
+test('Testa se ao digitar "t", a tabela retorna apenas as linhas corretas', async () => {
   render(<App />);
 
   const inputPlanet = screen.getByTestId('name-filter');
@@ -303,13 +303,13 @@ test('Testa se ao digitar "t", a tabela retorna apenas as linhas corretas', () =
 
   const expectedPlanets = ['Tatooine', 'Hoth', 'Coruscant'];
 
-  expectedPlanets.forEach(planet => {
-    const item = screen.getByText(planet);
+  for (const planet of expectedPlanets) {
+    const item = await screen.findByText(planet);
     expect(item).toBeInTheDocument();
-  });
+  }
 });
 
-test('Verifica se a API é chamada', async () => {
+test('Verifica se a API é chamada', () => {
     render(<App />);
       expect(global.fetch).toHaveBeenCalledTimes(1);
       expect(global.fetch).toHaveBeenCalledWith('https://swapi.dev/api/planets');
@@ -328,13 +328,13 @@ test('Verifica se a API é chamada', async () => {
         userEvent.type(valueFilter, '7200');
         userEvent.click(filterBtn);
 
-        planetNames.forEach((planetName) => {
-          if (planetName === 'Hoth') {
-            expect(screen.getByText(planetName)).toBeInTheDocuments();
-          } else {
-            expect(screen.queryByText(planetName)).notToBeInTheDocument();
+        for (const planetName of planetNames) {
+            if (planetName === 'Hoth') {
+              expect(await screen.findByText(planetName)).toBeInTheDocument();
+            } else {
+              expect(screen.queryByText(planetName)).not.toBeInTheDocument();
+            }
           }
-        });
 
 
       });

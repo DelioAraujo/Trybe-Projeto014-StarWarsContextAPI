@@ -116,6 +116,54 @@ function Filters() {
         >
           Apply Filter
         </button>
+
+        {/* <label>
+          Ordenar
+          <select
+            data-testid="column-sort"
+            value={ filterState.column }
+            onChange={ handleColumnChange }
+          >
+            {columnMenuUpdatedData.map((column, index) => (
+              <option key={ index } value={ column }>
+                {column}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label htmlFor="column-sort-input-asc">
+          Ordenação:
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="column-sort-input-asc"
+            data-testid="column-sort-input-asc"
+            value="ASC"
+            checked={ filterState.sort === 'ASC' }
+            onChange={ (event) => setFilterState((prevState) => ({
+              ...prevState,
+              sort: event.target.value,
+            })) }
+          />
+          Crescente
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="column-sort-input-desc"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+            checked={ filterState.sort === 'DESC' }
+            onChange={ (event) => setFilterState((prevState) => ({
+              ...prevState,
+              sort: event.target.value,
+            })) }
+          />
+          Decrescente
+        </label> */}
+
       </form>
 
       <button
